@@ -1,0 +1,22 @@
+\ProvidesPackage{gistex}
+\RequirePackage{minted}
+\RequirePackage{hyperref}
+
+\newcommand{\gistexprint}{\inputminted[
+                       mathescape,
+                       linenos,
+                       breaklines,
+                       frame=lines,
+                       framesep=2mm]{python}
+                     {.tempgist}}
+
+\newcommand{\gisteximport}[1]{\immediate\write18{./gistex_download.sh #1}}
+
+\newcommand{\gistexclean}{\immediate\write18{rm -rf /tmp/latexgist}}
+
+\newcommand{\gistex}[1]{
+            \gisteximport{#1}
+            \gistexprint
+            \href{#1}{Github Link}
+            \gistexclean
+          }
